@@ -1,0 +1,13 @@
+For this experiment, I want to clear out some queries on Spring @Autowired mechanism
+
+Given that Spring can autowire either by type or by name, it is always confused to me that what is the 
+default behavior when using annocation @Autowired or @Resource to do the autowire. Therefore, I made an 
+experiment to help clear out confusion. Here are some of my findings:
+	1. By default @Autowired and @Resource will first use field name or parameter name to autowire bean
+	   with the same name as bean id. If it can't find any matching bean id, then it will autowire by type. 
+    2. When autowire by type, for certain type, there must be only one bean existing in the application 
+       context. Otherwise, Spring will throw exception like: No unique bean of type [com.ms.junz.domain.User] 
+       is defined: expected single matching bean but found 2: [user1, user]
+    3. If your field name is independent of bean id and there might be multiple beans with the same type, 
+       you can use either @Qualifier("beanId") together with @Autowired, or @Resource(name="beanId") to 
+       explicitly tell Spring which bean to autowire. Then, Spring wouldn't complain any longer.

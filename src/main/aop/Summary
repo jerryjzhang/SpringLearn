@@ -1,0 +1,18 @@
+For this experiment, I want to clear out some queries on Spring AOP
+
+Q1: Must a target(advised) object be a stereotype in order to be adviced by an aspect
+A: No! A class only needs to be defined as a bean in the context and AOP bean post processor will scan each
+   bean in the context to see if any pointcut is met.
+   
+Q2: How to activate an aspect
+A: First specify "<aop:aspectj-autoproxy />" in the context file. Second, create a bean in the context for the 
+   aspect class, by either explicitly define it or let spring component-scan it. In the latter case, you need
+   to add a stereotype annotation like @Component together with @Aspect
+   
+Note1: A call from a method in an adviced target to another method in the same adviced target does not get 
+       intercepted by the proxy.
+       
+Note2: An aspect class can not be a target object of another aspect.
+   
+   
+   

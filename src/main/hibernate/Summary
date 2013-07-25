@@ -1,0 +1,10 @@
+This project is primary for studying Hibernate interceptor, which is often used to implement some kind of audit
+log. One important aspect is that interceptor can be in two different scopes: sessionFactory-scope or session-scope
+In former case, you only need to inject the interceptor into a sessionFactory or transactionManager, which in lattere
+case, you need to create new intercetor and pass it onto seesionFactory.openSession(interceptor). Also it is 
+important to know that for sessionFactory-scope interceptor, since it is global scope, which is going to be 
+shared cross multiple threads, it must be implemented in thread-safe manner. In this sense, you must not store
+any session specific states in any instance fileds. Rather, a solution is store those states in thread local.
+
+Reference:
+https://forum.hibernate.org/viewtopic.php?f=7&t=963049
