@@ -8,3 +8,11 @@ any session specific states in any instance fileds. Rather, a solution is store 
 
 Reference:
 https://forum.hibernate.org/viewtopic.php?f=7&t=963049
+
+
+Hibernate Learn
+1. When you put a @Transaction annotation on a class or method, and use declarative transaction(defined a HibernateTransactionManager as bean)
+   then before the execution of the method, Spring proxy code invokes transactionManager.getTransaction() to begin a transaction. And after
+   the method returns, transactionManager.commit() is invoked. While HibernateTransactionManager.getTransaction() will open a session and
+   invoke session.beginTransaction(), HibernateTransactionManager.commit() will invoke transaction.commit() that in turn invokes session.flush
+   to sync Hibernate in-memory store with real persistent datastore.
