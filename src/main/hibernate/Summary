@@ -16,3 +16,16 @@ Hibernate Learn
    the method returns, transactionManager.commit() is invoked. While HibernateTransactionManager.getTransaction() will open a session and
    invoke session.beginTransaction(), HibernateTransactionManager.commit() will invoke transaction.commit() that in turn invokes session.flush
    to sync Hibernate in-memory store with real persistent datastore.
+
+2. Hibernate has in-memory persistent context(Session) and write-behind mechanism, 
+   so only when actually sync with database does it hold database lock. However, 
+   actual sync with database may happen in two cases:
+   a. When the transaction is committed, session.flush() is invoked
+   b. Some query statement after the write operation.
+  
+3. In DB2 at default isolation level, when updating a database row, only the row
+   will be locked exclusively. Updating/Reading other rows will not be affected.
+   However, if you issue some where condition in the select and the condition column
+   is not indexed, the DBMS needs to scan every row in the table to see if the condition
+   matches. Thus, when scanning to the locked row, the select statement will be blocked
+   by the lock until the write operation commits.  
