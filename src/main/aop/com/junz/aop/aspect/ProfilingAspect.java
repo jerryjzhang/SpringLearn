@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 @Order(1)
 @Component
 public class ProfilingAspect {
-	//@Pointcut("execution(* com.junz.aop.target.*.*(..))")
-	@Pointcut("within(com.junz.aop..*)")
+	@Pointcut("execution(* com.junz.aop..*.*(..))")
+	//@Pointcut("within(com.junz.aop..*)")
     public void anyPublicMethodExecution() {
     };
     
