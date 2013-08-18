@@ -12,7 +12,7 @@ import com.junz.hibernate.time.TimeUtil;
 
 public class Main {
 	public static void main(String [] args){
-		bar();
+		foo();
 	}
 	
 	public static void bar(){

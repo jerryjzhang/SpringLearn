@@ -21,7 +21,7 @@
     <!-- 2. Or we can explicitly create a bean for the aspect class -->
 	
 	<bean id="logAspect" class="com.junz.aop.aspect.LoggingAspect" />
-	 
+	<bean id="profileAspect" class="com.junz.aop.aspect.ProfilingAspect" />
 	 
 	 <!-- For every bean in the context, aop will test if it meets any pointcut -->
 	<bean id="advicedObject" class="com.junz.aop.target.AdvicedDomainObjectImpl" />

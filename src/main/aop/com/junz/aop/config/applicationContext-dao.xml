@@ -11,6 +11,24 @@
 
 	<jdbc:embedded-database id="dataSource" type="H2" />
 	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+   		<property name="dataSource" ref="dataSource"/>
+   		<property name="packagesToScan" value="com.junz.aop.target"/>
+   		<property name="hibernateProperties">
+   			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>  
+				<prop key="hibernate.show.sql">true</prop> 
+			</props>
+		</property>
+ 	</bean>
+ 	
+
+	<bean id="transactionManager"  class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+ 	</bean>	
+	
+	<!-- Use Hibernate 4
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
    		<property name="dataSource" ref="dataSource"/>
    		<property name="packagesToScan" value="com.junz.aop.target"/>
@@ -27,6 +45,6 @@
 	<bean id="transactionManager"  class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
  	</bean>
-	
+	-->
 
 </beans>

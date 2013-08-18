@@ -18,15 +18,33 @@ import org.springframework.stereotype.Component;
 @Order(1)
 @Component
 public class ProfilingAspect {
-	@Pointcut("execution(public * *(..))")
+	//@Pointcut("execution(* com.junz.aop.target.*.*(..))")
+	@Pointcut("within(com.junz.aop..*)")
     public void anyPublicMethodExecution() {
     };
     
-    @Around("anyPublicMethodExecution() && @annotation(loggingMethod)" )
-    public void logg_start(ProceedingJoinPoint pjp, LoggingMethod loggingMethod)throws Throwable {
-        System.out.println("Profiling start "+loggingMethod.name());
+    @Around("anyPublicMethodExecution()" )
+    public void logg_start(ProceedingJoinPoint pjp)throws Throwable {
+        StringBuffer startMessageStringBuffer = new StringBuffer();
+
+        startMessageStringBuffer.append("Profiling start method ");
+        startMessageStringBuffer.append(pjp.getSignature().getName());
+        startMessageStringBuffer.append("(");
+
+        Object[] args = pjp.getArgs();
+        for (int i = 0; i < args.length; i++) {
+            startMessageStringBuffer.append(args[i]).append(",");
+        }
+        if (args.length > 0) {
+            startMessageStringBuffer.deleteCharAt(startMessageStringBuffer.length() - 1);
+        }
+
+        startMessageStringBuffer.append(")");
+
+        System.out.println(startMessageStringBuffer.toString());
+
         pjp.proceed();
-        System.out.println("Profiling end "+loggingMethod.name());
+        System.out.println("Profiling end "+ pjp.getSignature().getName());
     }
     
 }

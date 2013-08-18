@@ -9,8 +9,8 @@ import com.junz.aop.aspect.LoggingMethod;
 public class AdvicedDomainObjectImpl implements AdvicedDomainObject{
 	@LoggingMethod(name="print()")
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void print(){
-		System.out.println("invoke print()");
+	public void print(int id){
+		System.out.println("invoke print(" + id + ")");
 		/*
 		 * Note: A call from a method in an adviced target to another method in 
 		 * the same adviced target does not get intercepted by the proxy. Therefore,

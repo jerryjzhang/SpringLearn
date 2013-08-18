@@ -10,7 +10,7 @@ public class Main {
 				new ClassPathXmlApplicationContext("com/junz/aop/config/applicationContext.xml");
 		
 		AdvicedDomainObject ado = (AdvicedDomainObject)ctx.getBean("advicedObject");
-		ado.print();
-		System.out.println(ado.getClass().getName());
+		ado.print(1);
+		System.out.println("Bean class is: " + ado.getClass().getName());
 	}
 }

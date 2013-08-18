@@ -1,5 +1,5 @@
 package com.junz.aop.target;
 
 public interface AdvicedDomainObject {
-	public void print();
+	public void print(int id);
 }
