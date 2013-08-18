@@ -42,9 +42,11 @@ public class ProfilingAspect {
         startMessageStringBuffer.append(")");
 
         System.out.println(startMessageStringBuffer.toString());
-
+        Long start = System.currentTimeMillis();
         pjp.proceed();
-        System.out.println("Profiling end "+ pjp.getSignature().getName());
+        Long end = System.currentTimeMillis();
+        System.out.println("Profiling end "+ pjp.getSignature().getName() 
+        		+ " in " + (end-start) + " miliseconds");
     }
     
 }
